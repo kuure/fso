@@ -1,74 +1,67 @@
 import { useState } from 'react'
-import Note from './components/Note'
+
+const App = () => {
+
+	const [persons, setPersons] = useState([
+		{ name: 'Arto Hellas' }
+	]) 
+
+	const [newName, setNewName] = useState('')
 
 
-const App = (props) => {
-
-	// note state
-	const [notes, setNotes] = useState(props.notes)
-
-	// new note state
-	const [newNote, setNewNote] = useState('')
-
-	// determine what ones to show
-	const [showAll,setShowAll] = useState(true)
-
-
-	// add a new note
-	const addNote = (event) => {
+	// add a new person
+	const addPerson = (event) => {
 		event.preventDefault()
-		const noteObject = {
-			content: newNote,
-			important: Math.random() < 0.5,
-			id: String(notes.length + 1),
+		const personObject = {
+			content: newName,
+			id: String(persons.length + 1),
 		}
-		setNotes(notes.concat(noteObject))
-		setNewNote('')
+		setPersons(persons.concat(personObject))
+		setNewName('')
 	}
 
-	// deal with edits
-	const handleNoteChange = (event) => {
-		console.log(event.target.value)
-		setNewNote(event.target.value)
-	}
 
-	// which notes to display?
-	const notesToShow = showAll
-		? notes
-		: notes.filter(note => note.important)
+
+
 
 
 
 	return (
 		<div>
+			<h2>Phonebook</h2>
 
-			<h1>Notes</h1>
+			<form onSubmit={addPerson}>
+				<div>
+					name: <input />
+				</div>
+				<div>
+					<button type="submit">add</button>
+				</div>
+			</form>
 
-			<div>
-				<button onClick={() => setShowAll(!showAll)}>
-					show {showAll ? 'important' : 'all'}
-				</button>
-			</div>
+			<h2>Numbers</h2>
 
 			<ul>
-				{notesToShow.map(note => 
-					<Note key={note.id} note={note} />
+				{persons.map(person => 
+					<Person key={person.id} person={person} />
 				)}
 			</ul>
 
-			<form onSubmit={addNote}>
 
-				<input
-					value={newNote}
-					onChange={handleNoteChange}
-				/>
-
-				<button type="submit">save</button>
-
-			</form>
+			<div>debug: {newName}</div>
 
 		</div>
 	)
 }
 
-export default App 
+export default App
+
+
+const Person = ({person}) => {
+	return (
+		<p>{person.name}</p>
+	)
+}
+
+
+
