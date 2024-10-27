@@ -1,59 +1,18 @@
-const Course = ({course}) => {
+import React from 'react'
+import Header from './Header'
+import Content from './Content'
+import Total from './Total'
 
-	const parts = course.parts
-
-	// this was a pain but part of 2.3
-	const total = parts.reduce((sum, parts) => {
-		return sum + parts.exercises;
-	}, 0);
-
-	console.log(total)
-
-	return (
+const Course = ({courses}) =>
 	<div>
-		<Header course={course} />
-
-		<Content>
-			{parts.map(part => 
-				<Part key={part.id} part={part} />
-			)}
-		</Content>
-
+		{courses.map(course =>
+			<div key={course.id}>
+				<Header course={course.name} />
+				<Content parts={course.parts}/>
+				<Total parts={course.parts}/>
+			</div>
+		)}
 	</div>
-	)
-}
 
 export default Course
-
-
-const Header = ({course}) => {
-	return (
-		<header>
-			<h1>{course.name}</h1>
-		</header>
-	)
-}
-
-
-
-const Content = ({children}) => {
-	return (
-		<main>
-			{children}
-		</main>
-	)
-}
-
-
-const Part = ({part}) => {
-	return (
-		<article>
-			<h2>Part</h2>
-			<p>{part.name}</p>
-			<p>{part.exercises}</p>
-		</article>
-	)
-}
-
-
 
