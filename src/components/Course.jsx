@@ -2,6 +2,7 @@ const Course = ({course}) => {
 
 	const parts = course.parts
 
+	// this was a pain but part of 2.3
 	const total = parts.reduce((sum, parts) => {
 		return sum + parts.exercises;
 	}, 0);
