@@ -4,12 +4,11 @@ const App = () => {
 
 	// data, 'persons' array
 	const [persons, setPersons] = useState([
-		{ name: 'Arto Hellas' }
+		{ name: 'Arto Hellas' },
 	]) 
 
 	// new name state
 	const [newName, setNewName] = useState('')
-
 
 	// add a new person
 	const addPerson = (event) => {
@@ -18,30 +17,27 @@ const App = () => {
 		event.preventDefault()
 
 		const personObject = {
-			content: newName,
+			name: newName,
 			id: String(persons.length + 1),
 		}
 
-		console.log(persons)
+		console.log("New Person Object Before:", persons)
 		setPersons(persons.concat(personObject))
-		setNewName('')
-		console.log(persons)
-
+		setNewName(newName)
+		console.log("New Person Object After:", persons)
 	}
-
 
 	const handlePersonChange = () => {
-		console.log(event.target.value)
+		//console.log("handlePersonChange", event.target.value)
 		setNewName(event.target.value)
+		//console.log("newName", newName)
 	}
+
 
 	return (
 		<div>
-
 			<h2>Phonebook</h2>
-
 			<form onSubmit={addPerson}>
-
 				<div>
 					name :
 					<input
@@ -55,12 +51,11 @@ const App = () => {
 				</div>
 
 			</form>
-
 			<h2>Numbers</h2>
 
 			<ul>
 				{persons.map(person => 
-					<Person key={person.id} person={person} />
+					<Person key={person.name} person={person} />
 				)}
 			</ul>
 
