@@ -4,7 +4,7 @@ const App = () => {
 
 	// data, 'persons' array
 	const [persons, setPersons] = useState([
-		{ name: 'Arto Hellas' },
+		{ name: 'jeff' },
 	]) 
 
 	// new name state
@@ -13,7 +13,6 @@ const App = () => {
 	// add a new person
 	const addPerson = (event) => {
 
-		console.log('addPerson event', event)
 		event.preventDefault()
 
 		const personObject = {
@@ -21,16 +20,21 @@ const App = () => {
 			id: String(persons.length + 1),
 		}
 
-		console.log("New Person Object Before:", persons)
-		setPersons(persons.concat(personObject))
-		setNewName(newName)
-		console.log("New Person Object After:", persons)
+		const personMatch = persons.some(person => person.name === newName)
+		if (personMatch) {
+			window.confirm(
+				`${newName} is already added to the phonebook`
+			)
+		}
+		else {
+			setPersons(persons.concat(personObject))
+			setNewName(newName)
+		}
+
 	}
 
 	const handlePersonChange = () => {
-		//console.log("handlePersonChange", event.target.value)
 		setNewName(event.target.value)
-		//console.log("newName", newName)
 	}
 
 
