@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Person from './components/Person'
+import Filter from './components/Filter'
 
 const App = () => {
 
@@ -49,14 +50,14 @@ const App = () => {
 	}
 
 	// event handlers
-	const handleNameChange = () => setNewName(event.target.value)
+	const handleNameChange = () => {
+		console.log(event.target)
+		setNewName(event.target.value)
+	}
+
+
 	const handleNumberChange = () => setNewNumber(event.target.value)
 	const handleFilterChange = () => setNewFilter(event.target.value)
-
-
-	const personsToShow = newName ? persons.filter(person => person.name.toLowerCase().includes(newName.toLowerCase())) : persons 
-	console.log(personsToShow)
-	console.log(newName)
 
 
 	// GUI stuff
@@ -64,6 +65,8 @@ const App = () => {
 		<div>
 
 			<h2>Phonebook</h2>
+			
+
 			<div>
 				filter: <input value={newFilter} onChange={handleFilterChange}/>
 			</div>
@@ -77,10 +80,8 @@ const App = () => {
 
 			<h2>Numbers</h2>
 			<ul>
-				{ personsToShow.map(person => <Person key={person.name} person={person} />)}
+				<Filter persons={persons} name={newFilter} />
 			</ul>
-
-			<div>debug: {newNumber}</div>
 
 		</div>
 	)
