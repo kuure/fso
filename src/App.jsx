@@ -1,18 +1,11 @@
-import { useState } from 'react'
-import Person from './components/Person'
+import { useState,useEffect } from 'react'
+import axios from 'axios'
 import Filter from './components/Filter'
 
 const App = () => {
 
 	// data, 'persons' array
-  const [persons, setPersons] = useState([
-		{ name: 'jeff', number: "6307" },
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-
-	]) 
+  const [persons, setPersons] = useState([]) 
 
 	// new name state
 	const [newName, setNewName] = useState('')
@@ -22,6 +15,15 @@ const App = () => {
 	
 	// new filter state
 	const [newFilter, setNewFilter] = useState('')
+
+	useEffect(() => {
+		axios
+			.get('http://localhost:3001/persons')
+			.then(response => {
+				console.log(response.data)
+				setPersons(response.data)
+			})
+	},[])
 
 
 	// add a new person
