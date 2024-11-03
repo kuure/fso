@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
+import personService from './services/persons'
 
 const App = () => {
 
@@ -16,12 +16,12 @@ const App = () => {
 	// new filter state
 	const [newFilter, setNewFilter] = useState('')
 
+	// get the data right when the page loads
 	useEffect(() => {
-		axios
-			.get('http://localhost:3001/persons')
-			.then(response => {
-				console.log(response.data)
-				setPersons(response.data)
+		personService
+			.getAll()
+			.then(initialPersons => {
+				setPersons(initialPersons)
 			})
 	},[])
 
@@ -43,11 +43,14 @@ const App = () => {
 			window.confirm( `${newName} is already added to the phonebook`)
 		}
 		else {
-			// change the state for newName and newNumber
-			setNewName(newName)
-			setNewNumber(newNumber)
-			// add the personObject to the persons array
-			setPersons(persons.concat(personObject))
+			personService
+				.create(personObject)
+				.then(returnedPerson => {
+					// change the state for newName and newNumber
+					setNewName(newName)
+					setNewNumber(newNumber)
+					setPersons(persons.concat(returnedPerson))
+				})
 		}
 	}
 

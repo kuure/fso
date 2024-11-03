@@ -2,7 +2,6 @@ import { useState,useEffect } from 'react'
 import Note from './components/Note'
 import noteService from './services/notes'
 
-
 const App = () => {
 
 	// note state
@@ -24,6 +23,8 @@ const App = () => {
 	// add a new note
 	const addNote = (event) => {
 		event.preventDefault()
+
+		// template for note
 		const noteObject = {
 			content: newNote,
 			important: Math.random() < 0.5,
