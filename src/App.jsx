@@ -3,7 +3,9 @@ import axios from 'axios'
 import Note from './components/Note'
 
 
-const App = (props) => {
+const App = () => {
+
+	const url = `http://localhost:3001/notes/`
 
 	// note state
 	const [notes, setNotes] = useState([])
@@ -12,10 +14,11 @@ const App = (props) => {
 	// determine what ones to show
 	const [showAll,setShowAll] = useState(true)
 
+	// get the data right when the page loads
 	useEffect(() => {
 		console.log('effect')
 		axios
-			.get('http://localhost:3001/notes')
+			.get(url)
 			.then(response => {
 				setNotes(response.data)
 			})
@@ -29,13 +32,31 @@ const App = (props) => {
 			important: Math.random() < 0.5,
 		}
 		axios
-			.post('http://localhost:3001/notes',noteObject)
+			.post(url,noteObject)
 			.then(response => {
 				console.log(response.data)
 				setNotes(notes.concat(noteObject))
 				setNewNote('')
 			})
 	}
+
+
+	// change importance of a note
+	const toggleImportanceOf = id => {
+
+		const postUrl = `${url}${id}`
+		const note = notes.find(n => n.id === id)
+
+		// the spread operator
+		const changedNote = { ...note, important: !note.important }
+
+		axios.put(postUrl, changedNote).then(response => {
+			setNotes(notes.map(n => n.id === id ? response.data : n))
+		})
+
+	}
+
+
 
 	// deal with edits
 	const handleNoteChange = (event) => {
@@ -50,6 +71,7 @@ const App = (props) => {
 
 
 
+	// GUI stuff
 	return (
 		<div>
 
@@ -62,8 +84,12 @@ const App = (props) => {
 			</div>
 	
 			<ul>
-				{notesToShow.map(note => 
-					<Note key={note.id} note={note} />
+				{notesToShow.map(note =>
+					<Note
+						key={note.id}
+						note={note}
+						toggleImportance={() => toggleImportanceOf(note.id)}
+					/>
 				)}
 			</ul>
 
