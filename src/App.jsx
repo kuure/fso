@@ -45,11 +45,12 @@ const App = () => {
 		else {
 			personService
 				.create(personObject)
-				.then(returnedPerson => {
+				.then(returnedPersons => {
 					// change the state for newName and newNumber
+					console.log(returnedPersons)
 					setNewName(newName)
 					setNewNumber(newNumber)
-					setPersons(persons.concat(returnedPerson))
+					setPersons(persons.concat(personObject))
 				})
 		}
 	}
@@ -60,7 +61,6 @@ const App = () => {
 		setNewName(event.target.value)
 	}
 
-
 	const handleNumberChange = () => setNewNumber(event.target.value)
 	const handleFilterChange = () => setNewFilter(event.target.value)
 
@@ -70,7 +70,6 @@ const App = () => {
 		<div>
 
 			<h2>Phonebook</h2>
-			
 
 			<div>
 				filter: <input value={newFilter} onChange={handleFilterChange}/>
@@ -92,6 +91,4 @@ const App = () => {
 	)
 }
 export default App
-
-
 
