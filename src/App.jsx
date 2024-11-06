@@ -37,9 +37,31 @@ const App = () => {
 		event.preventDefault()
 
 		// is there a person in the book with the same name?
-		const personMatch = persons.some(person => person.name === newName)
-		if (personMatch) {
-			window.confirm( `${newName} is already added to the phonebook`)
+		const personMatch = persons.filter(person => person.name === newName)
+
+		console.log("persons",persons)
+		console.log("newName",newName)
+		console.log("personMatch",personMatch)
+
+
+
+		if (personMatch.length !== 0) {
+
+			if (window.confirm(`${newName} is already added to the phonebook, would you like to update?`)) {
+
+				const updatedPerson = { ...personMatch[0], number: newNumber}
+
+				console.log(updatedPerson)
+
+				personService
+					.update(updatedPerson.id,updatedPerson)
+					.then(returnedPerson => {
+						setPersons(persons.map(person => person.id !== updatedPerson ? person : returnedPerson ))
+						setNewName('')
+						setNewNumber('')
+					})
+			}
+
 		}
 		else {
 			
