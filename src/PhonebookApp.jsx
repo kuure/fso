@@ -1,6 +1,11 @@
 import { useState,useEffect } from 'react'
-import axios from 'axios'
+
+import personService from './services/persons'
+
 import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import People from './components/People'
+
 
 const App = () => {
 
@@ -14,14 +19,15 @@ const App = () => {
 	const [newNumber, setNewNumber] = useState('')
 	
 	// new filter state
-	const [newFilter, setNewFilter] = useState('')
+	const [filter, setFilter] = useState('')
 
+
+	// get the data right when the page loads
 	useEffect(() => {
-		axios
-			.get('http://localhost:3001/persons')
-			.then(response => {
-				console.log(response.data)
-				setPersons(response.data)
+		personService
+			.getAll()
+			.then(initialPersons => {
+				setPersons(initialPersons)
 			})
 	},[])
 
@@ -30,36 +36,75 @@ const App = () => {
 	const addPerson = (event) => {
 		event.preventDefault()
 
-		// template for person
-		const personObject = {
-			name: newName,
-			number: newNumber,
-			id: String(persons.length + 1),
-		}
-
 		// is there a person in the book with the same name?
-		const personMatch = persons.some(person => person.name === newName)
-		if (personMatch) {
-			window.confirm( `${newName} is already added to the phonebook`)
+		const personMatch = persons.filter(person => person.name === newName)
+
+		console.log("persons",persons)
+		console.log("newName",newName)
+		console.log("personMatch",personMatch)
+
+
+
+		if (personMatch.length !== 0) {
+
+			if (window.confirm(`${newName} is already added to the phonebook, would you like to update?`)) {
+
+				const updatedPerson = { ...personMatch[0], number: newNumber}
+
+				console.log(updatedPerson)
+
+				personService
+					.update(updatedPerson.id,updatedPerson)
+					.then(returnedPerson => {
+						setPersons(persons.map(person => person.id !== updatedPerson ? person : returnedPerson ))
+						setNewName('')
+						setNewNumber('')
+					})
+			}
+
 		}
 		else {
-			// change the state for newName and newNumber
-			setNewName(newName)
-			setNewNumber(newNumber)
-			// add the personObject to the persons array
-			setPersons(persons.concat(personObject))
+			
+			// template for person
+			const personObject = {
+				name: newName,
+				number: newNumber,
+			}
+
+			personService
+				.create(personObject)
+				.then(returnedPerson => {
+					setPersons(persons.concat(returnedPerson))
+					setNewName('')
+					setNewNumber('')
+				})
 		}
 	}
 
-	// event handlers
-	const handleNameChange = () => {
-		console.log(event.target)
-		setNewName(event.target.value)
+
+	const deletePerson = (deleteId) => {
+
+		const personToDelete = persons.filter(person => person.id === deleteId)	
+		const {name, id} = personToDelete[0]
+
+		if (window.confirm(`Delete ${name} ?`)) {
+			personService
+				.deletePerson(id)
+				.then(() =>
+					setPersons(persons.filter(person => person.id !== id)))
+			console.log(`${name} successfully deleted`)
+		}
+
 	}
 
 
+
+
+
+	// event handlers
+	const handleNameChange = () => { setNewName(event.target.value) }
 	const handleNumberChange = () => setNewNumber(event.target.value)
-	const handleFilterChange = () => setNewFilter(event.target.value)
+	const handleFilterChange = () => setFilter(event.target.value)
 
 
 	// GUI stuff
@@ -67,28 +112,29 @@ const App = () => {
 		<div>
 
 			<h2>Phonebook</h2>
-			
 
-			<div>
-				filter: <input value={newFilter} onChange={handleFilterChange}/>
-			</div>
-			<form onSubmit={addPerson}>
-				<div>name : <input value={newName} onChange={handleNameChange} /> </div>
-				<div>number: <input value={newNumber} onChange={handleNumberChange} /> </div>
-				<div>
-					<button type="submit">add</button>
-				</div>
-			</form>
+			<Filter 
+				filter={filter} 
+				handleFilterChange={handleFilterChange} 
+			/>
 
 			<h2>Numbers</h2>
-			<ul>
-				<Filter persons={persons} name={newFilter} />
-			</ul>
+
+			<PersonForm
+				addPerson = {addPerson}
+				newName = {newName}
+				handleNameChange = {handleNameChange}
+				newNumber = {newNumber}
+				handleNumberChange = {handleNumberChange}
+			/>
+
+			<People
+				deletePerson={deletePerson}
+				persons={persons}
+				filter={filter}
+			/>
 
 		</div>
 	)
 }
 export default App
-
-
-
