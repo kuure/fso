@@ -4,4 +4,3 @@ const Person = ({person}) => {
 	)
 }
 export default Person
-

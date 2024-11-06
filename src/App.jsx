@@ -1,4 +1,5 @@
 import { useState,useEffect } from 'react'
+
 import personService from './services/persons'
 
 import Filter from './components/Filter'
@@ -18,7 +19,7 @@ const App = () => {
 	const [newNumber, setNewNumber] = useState('')
 	
 	// new filter state
-	const [newFilter, setNewFilter] = useState('')
+	const [filter, setFilter] = useState('')
 
 
 
@@ -32,11 +33,13 @@ const App = () => {
 	},[])
 
 
-	
+
+
+
+
 	// add a new person
 	const addPerson = (event) => {
 		event.preventDefault()
-
 
 		// is there a person in the book with the same name?
 		const personMatch = persons.some(person => person.name === newName)
@@ -64,16 +67,22 @@ const App = () => {
 	// event handlers
 	const handleNameChange = () => { setNewName(event.target.value) }
 	const handleNumberChange = () => setNewNumber(event.target.value)
-	const handleFilterChange = () => setNewFilter(event.target.value)
+	const handleFilterChange = () => setFilter(event.target.value)
 
 
 	// GUI stuff
+	// this logs blank once, then getAll happens 
+	// above and it immdiately gets populated
+	// then runs every single reload
 	return (
 		<div>
 
 			<h2>Phonebook</h2>
 
-			<Filter filter={newFilter} handleFilterChange={handleFilterChange} />
+			<Filter 
+				filter={filter} 
+				handleFilterChange={handleFilterChange} 
+			/>
 
 			<h2>Numbers</h2>
 
@@ -85,7 +94,7 @@ const App = () => {
 				handleNumberChange = {handleNumberChange}
 			/>
 
-			<People persons={persons} name={newFilter} />
+			<People persons={persons} filter={filter} />
 
 		</div>
 	)
