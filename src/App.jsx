@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react'
 import Note from './components/Note'
+import Notification from './components/Notification'
 import noteService from './services/notes'
 
 const App = () => {
@@ -10,6 +11,8 @@ const App = () => {
 	const [newNote, setNewNote] = useState('')
 	// determine what ones to show
 	const [showAll,setShowAll] = useState(true)
+	// error messages
+	const [errorMessage,setErrorMessage] = useState('some error happened')
 
 	// get the data right when the page loads
 	useEffect(() => {
@@ -28,11 +31,12 @@ const App = () => {
 		const noteObject = {
 			content: newNote,
 			important: Math.random() < 0.5,
+			id: notes.length -1
 		}
 		noteService
 			.create(noteObject)
 			.then(returnedNote => {
-				setNotes(notes.concat(returnedNote))
+				setNotes(returnedNote.concat(noteObject))
 				setNewNote('')
 			})
 	}
@@ -75,6 +79,8 @@ const App = () => {
 		<div>
 
 			<h1>Notes</h1>
+
+			<Notification message={errorMessage} />
 
 			<div>
 				<button onClick={() => setShowAll(!showAll)}>

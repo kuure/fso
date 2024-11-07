@@ -1,3 +1,18 @@
 h2 {
 	color: green;
 }
+
+.note {
+	border: 1px solid #ccc;
+	padding: 1rem;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 1.5rem;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
