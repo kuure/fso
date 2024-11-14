@@ -7,11 +7,11 @@ const getAll = () => {
 	}
 
 const create = (newObject) => {
-	const request = axios.get(baseUrl,newObject)
+	const request = axios.post(baseUrl,newObject)
 	return request.then(response => response.data)
 }
 
-const update = (newObject) => {
+const update = (id,newObject) => {
 	const request = axios.put(`${baseUrl}/${newObject.id}`, newObject)
 	return request.then(response => response.data)
 }

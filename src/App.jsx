@@ -31,12 +31,11 @@ const App = () => {
 		const noteObject = {
 			content: newNote,
 			important: Math.random() < 0.5,
-			id: notes.length -1
 		}
 		noteService
 			.create(noteObject)
 			.then(returnedNote => {
-				setNotes(returnedNote.concat(noteObject))
+				setNotes(notes.concat(returnedNote))
 				setNewNote('')
 			})
 	}
@@ -63,7 +62,7 @@ const App = () => {
 
 	// deal with edits
 	const handleNoteChange = (event) => {
-		console.log(event.target.value)
+		//console.log(event.target.value)
 		setNewNote(event.target.value)
 	}
 

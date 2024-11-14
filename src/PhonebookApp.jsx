@@ -39,19 +39,13 @@ const App = () => {
 		// is there a person in the book with the same name?
 		const personMatch = persons.filter(person => person.name === newName)
 
-		console.log("persons",persons)
-		console.log("newName",newName)
-		console.log("personMatch",personMatch)
-
-
-
 		if (personMatch.length !== 0) {
 
 			if (window.confirm(`${newName} is already added to the phonebook, would you like to update?`)) {
 
 				const updatedPerson = { ...personMatch[0], number: newNumber}
 
-				console.log(updatedPerson)
+				//console.log(updatedPerson)
 
 				personService
 					.update(updatedPerson.id,updatedPerson)
