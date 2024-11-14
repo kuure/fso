@@ -3,6 +3,31 @@ import Note from './components/Note'
 import Notification from './components/Notification'
 import noteService from './services/notes'
 
+
+
+
+const Footer = () => {
+
+	const footerStyle = {
+		color: "green",
+		fontStyle: "bold",
+		backgroundColor: "yellow",
+	}
+	return (
+
+		<footer style={footerStyle}>
+			<p>Hi there from the footer</p>
+		</footer>
+
+	)
+
+}
+
+
+
+
+
+
 const App = () => {
 
 	// note state
@@ -12,7 +37,7 @@ const App = () => {
 	// determine what ones to show
 	const [showAll,setShowAll] = useState(true)
 	// error messages
-	const [errorMessage,setErrorMessage] = useState('some error happened')
+	const [errorMessage,setErrorMessage] = useState(null)
 
 	// get the data right when the page loads
 	useEffect(() => {
@@ -48,13 +73,20 @@ const App = () => {
 		const changedNote = { ...note, important: !note.important }
 
 		noteService
-			.update(id, changedNote)
+			.update(id,changedNote)
 			.then(returnedNote => {
 				setNotes(notes.map(note => note.id===id ? returnedNote : note ))
+
 			})
+
 			.catch(error => {
-				alert(`the note '${note.content}' was already deleted from the server`)
-				setNotes(notes.filter(n => n.id !== id))
+				setErrorMessage(
+					`the note '${note.content}' was already deleted from the server`
+				)
+				setTimeout(() => {
+					setErrorMessage(null)
+				},5000)
+				//setNotes(notes.filter(n => n.id !== id))
 			})
 	}
 
@@ -107,6 +139,8 @@ const App = () => {
 				<button type="submit">save</button>
 
 			</form>
+
+			<Footer />
 
 		</div>
 	)
