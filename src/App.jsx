@@ -1,27 +1,8 @@
 import { useState,useEffect } from 'react'
 import Note from './components/Note'
+import Footer from './components/Footer'
 import Notification from './components/Notification'
 import noteService from './services/notes'
-
-
-
-
-const Footer = () => {
-
-	const footerStyle = {
-		color: "green",
-		fontStyle: "bold",
-		backgroundColor: "yellow",
-	}
-	return (
-
-		<footer style={footerStyle}>
-			<p>Hi there from the footer</p>
-		</footer>
-
-	)
-
-}
 
 
 
