@@ -12,7 +12,7 @@ import noteService from './services/notes'
 const App = () => {
 
 	// note state
-	const [notes, setNotes] = useState([])
+	const [notes, setNotes] = useState(null)
 	// new note state
 	const [newNote, setNewNote] = useState('')
 	// determine what ones to show
@@ -28,6 +28,11 @@ const App = () => {
 				setNotes(initialNotes)
 			})
 	}, [])
+
+	if (!notes) {
+		return null
+	}
+
 
 	// add a new note
 	const addNote = (event) => {
