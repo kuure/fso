@@ -5,6 +5,7 @@ import personService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import People from './components/People'
+import Notification from './components/Notification'
 
 
 const App = () => {
@@ -21,6 +22,8 @@ const App = () => {
 	// new filter state
 	const [filter, setFilter] = useState('')
 
+	// notification messages
+	const [message,setMessage] = useState(null)
 
 	// get the data right when the page loads
 	useEffect(() => {
@@ -48,15 +51,32 @@ const App = () => {
 				//console.log(updatedPerson)
 
 				personService
-					.update(updatedPerson.id,updatedPerson)
+					.update(updatedPerson.id, updatedPerson)
 					.then(returnedPerson => {
-						setPersons(persons.map(person => person.id !== updatedPerson ? person : returnedPerson ))
+						setPersons(persons.map(person => person.id !== updatedPerson ? person : returnedPerson))
 						setNewName('')
 						setNewNumber('')
+						setMessage(
+							`${updatedPerson.name} was successfully updated`
+						)
+						setTimeout(() => {
+							setMessage(null)
+						}, 5000)
+					})
+					.catch((error) => {
+						console.log(error)
+						setPersons(persons.filter(person => person.id !== updatedPerson.id))
+						setNewName('')
+						setNewNumber('')
+						setMessage(
+							`Error: ${updatedPerson.name} was already deleted from server`
+						)
+						setTimeout(() => {
+							setMessage(null)
+						}, 5000)
 					})
 			}
-
-		}
+		} 
 		else {
 			
 			// template for person
@@ -71,6 +91,15 @@ const App = () => {
 					setPersons(persons.concat(returnedPerson))
 					setNewName('')
 					setNewNumber('')
+					setMessage(
+						`personService updated`
+					)
+					setTimeout(() => {
+						setMessage(null)
+					}, 5000)
+				})
+				.catch(error => {
+					console.log("Error: ", error)
 				})
 		}
 	}
@@ -106,6 +135,8 @@ const App = () => {
 		<div>
 
 			<h2>Phonebook</h2>
+
+			<Notification message={message} />
 
 			<Filter 
 				filter={filter} 
