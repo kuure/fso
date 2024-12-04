@@ -5,44 +5,39 @@ const App = () => {
 
 	const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/api'
 
-	const [value, setValue] = useState('')
+	const [searchTerm, setSearchTerm] = useState('')
 	const [countries, setCountries] = useState(null)
+	const [selectedCountry,setSelectedCountry] = useState(null)
 
-
-
-	
 	useEffect(() => {
-		console.log('effect run, country is now', countries)
-		// skip if countries is not defined
-		if (countries) {
+		if (!countries) {
 			console.log('fetching country info...')
 			axios
 				.get(`${baseUrl}/all`)
 				.then(response => {
-					console.log("Value",value)
+					console.log("Search Term",searchTerm)
 					setCountries(response.data)
 				})
 		}
-	}, [])
-
+	}, [countries])
 
 
 
 
 
 	const handleChange = (event) => {
-		setValue(event.target.value)
+		setSearchTerm(event.target.value)
 	}
 
 	const onSearch = (event) => {
 		event.preventDefault()
-		setCountries(value)
+		setCountries(searchTerm)
 	}
 
 	return (
 		<div>
 			<form onSubmit={onSearch}>
-				country: <input value={value} onChange={handleChange} />
+				country: <input value={searchTerm} onChange={handleChange} />
 				<button type="submit">country info</button>
 			</form>
 			<pre>
