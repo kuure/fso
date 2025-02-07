@@ -7,7 +7,7 @@ import PersonForm from './components/PersonForm'
 import People from './components/People'
 import Notification from './components/Notification'
 
-
+// adding a comment for a test
 const App = () => {
 
 	// data, 'persons' array
