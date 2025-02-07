@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 
 import App from './App'
 
+<<<<<<< HEAD
 const notes = [
 	{
 		id: 1,
@@ -23,4 +24,12 @@ const notes = [
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<App notes={notes} />
+=======
+import './css/reset.css'
+import './css/index.css'
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+	<App />
+>>>>>>> 3a
 )

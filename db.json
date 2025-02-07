@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"posts": [
 		{
 			"id": 1,
@@ -17,3 +18,162 @@
 		"name": "typicode"
 	}
 }
+=======
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": false
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": true
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": false
+    },
+    {
+      "content": "this is a test",
+      "important": false,
+      "id": "zXgfLYu"
+    },
+    {
+      "content": "tomatoes are alright",
+      "important": true,
+      "id": "Eu8XZ9j"
+    },
+    {
+      "content": "things go away",
+      "important": false,
+      "id": "RBDQdBm"
+    },
+    {
+      "content": "this one",
+      "important": false,
+      "id": "E401gmh"
+    },
+    {
+      "content": "this thing",
+      "important": false,
+      "id": "gr5HNo2"
+    },
+    {
+      "content": "another ",
+      "important": false,
+      "id": "fAxGCHF"
+    },
+    {
+      "content": "another new one",
+      "important": false,
+      "id": "XbvaaTX"
+    },
+    {
+      "content": "tjis one",
+      "important": false,
+      "id": "a1ewbeE"
+    },
+    {
+      "content": "this one",
+      "important": false,
+      "id": "nvJ69gN"
+    },
+    {
+      "content": "this one",
+      "important": false,
+      "id": "a8tjlT1"
+    },
+    {
+      "content": "that one",
+      "important": false,
+      "id": "G8-HP2M"
+    },
+    {
+      "content": "",
+      "important": true,
+      "id": "BXT6UIh"
+    },
+    {
+      "content": "",
+      "important": false,
+      "id": "81dc5yy"
+    },
+    {
+      "content": "",
+      "important": false,
+      "id": "JFagTX8"
+    },
+    {
+      "content": "This one here",
+      "important": false,
+      "id": "bDLYY_R"
+    },
+    {
+      "content": "this one",
+      "important": false,
+      "id": "tgS54lS"
+    },
+    {
+      "content": "jeff",
+      "important": false,
+      "id": "S0ufcRY"
+    },
+    {
+      "content": "jefffffff",
+      "important": false,
+      "id": "IbZknUR"
+    }
+  ],
+  "defaultPersons": [
+    {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": 1
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": 2
+    },
+    {
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": 3
+    },
+    {
+      "name": "Mary Poppendieck",
+      "number": "39-23-6423122",
+      "id": 4
+    }
+  ],
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": 1
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": 2
+    },
+    {
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": 3
+    },
+    {
+      "name": "Mary Poppendieck",
+      "number": "39-23-6423122",
+      "id": 4
+    },
+    {
+      "name": "Jeff",
+      "number": "4449449494",
+      "id": 5
+    }
+  ]
+}
+>>>>>>> 3a

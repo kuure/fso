@@ -1,0 +1,29 @@
+body {
+	padding: 1rem;
+}
+
+h1 {
+	color: green;
+	font-style: italic;
+}
+
+.note {
+	border: 1px solid #ccc;
+	padding: 0.5rem;
+	list-style: none;
+	margin-bottom: 0.5rem;
+}
+
+button {
+	margin: 0.5rem;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 1.5rem;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}

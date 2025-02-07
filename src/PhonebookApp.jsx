@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import { useState } from 'react'
-=======
 import { useState,useEffect } from 'react'
 
 import personService from './services/persons'
@@ -10,19 +7,10 @@ import PersonForm from './components/PersonForm'
 import People from './components/People'
 import Notification from './components/Notification'
 
->>>>>>> 3a
 
 const App = () => {
 
 	// data, 'persons' array
-<<<<<<< HEAD
-	const [persons, setPersons] = useState([
-		{ name: 'Arto Hellas' }
-	]) 
-
-	// new name state
-	const [newName, setNewName] = useState('')
-=======
   const [persons, setPersons] = useState([]) 
 
 	// new name state
@@ -45,35 +33,10 @@ const App = () => {
 				setPersons(initialPersons)
 			})
 	},[])
->>>>>>> 3a
 
 
 	// add a new person
 	const addPerson = (event) => {
-<<<<<<< HEAD
-
-		console.log('addPerson event', event)
-		event.preventDefault()
-
-		const personObject = {
-			content: newName,
-			id: String(persons.length + 1),
-		}
-
-		console.log(persons)
-		setPersons(persons.concat(personObject))
-		setNewName('')
-		console.log(persons)
-
-	}
-
-
-	const handlePersonChange = () => {
-		console.log(event.target.value)
-		setNewName(event.target.value)
-	}
-
-=======
 		event.preventDefault()
 
 		// is there a person in the book with the same name?
@@ -169,40 +132,11 @@ const App = () => {
 
 
 	// GUI stuff
->>>>>>> 3a
 	return (
 		<div>
 
 			<h2>Phonebook</h2>
 
-<<<<<<< HEAD
-			<form onSubmit={addPerson}>
-
-				<div>
-					name :
-					<input
-						value={newName}
-						onChange={handlePersonChange}
-					/>
-				</div>
-
-				<div>
-					<button type="submit">add</button>
-				</div>
-
-			</form>
-
-			<h2>Numbers</h2>
-
-			<ul>
-				{persons.map(person => 
-					<Person key={person.id} person={person} />
-				)}
-			</ul>
-
-
-			<div>debug: {newName}</div>
-=======
 			<Notification message={message} />
 			<Filter 
 				filter={filter} 
@@ -224,24 +158,8 @@ const App = () => {
 				persons={persons}
 				filter={filter}
 			/>
->>>>>>> 3a
 
 		</div>
 	)
 }
-<<<<<<< HEAD
-
 export default App
-
-
-const Person = ({person}) => {
-	return (
-		<p>{person.name}</p>
-	)
-}
-
-
-
-=======
-export default App
->>>>>>> 3a
